@@ -65,6 +65,9 @@ public class MainClass extends Application {
          judulDepan2.setTextFill(Color.WHITE);
          judulDepan2.setLayoutX(400);
          judulDepan2.setLayoutY(400);
+        
+         ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/projectone/wony.jpg")));
+         root.getChildren().add(image);
          
          
     }
