@@ -45,8 +45,6 @@ public class MainClass extends Application {
          judulDepan = new Label("PENGAJUAN PELAKSANAAN PKN");
          judulDepan2 = new Label("( Praktek Kerja Nyata )");
          
-         logo = new Image("E:\\Image\\guild ls\\Screenshot (509).png");
-         
          
         // =============================================================================
         //                          CONTROL PANE LOGIN
