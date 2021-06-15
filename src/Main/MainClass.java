@@ -57,7 +57,7 @@ public class MainClass extends Application {
          info = new Label("Login sebagai :");
          bannerAtas = new Pane();
          bannerBawah = new Pane();
-         buttonPilih = new Button("pilih");
+         buttonPilih = new Button("PILIH");
      
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -87,14 +87,35 @@ public class MainClass extends Application {
          // --> Azzahry Dwi Pramudio
                 
          // slot image
+         ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo.png")));
+         anchor.getChildren().add(image);
+         image.setFitHeight(150);
+         image.setFitWidth(450);
+         image.setLayoutX(325);
+         image.setLayoutY(160);
          
          // slot info
+         info.setFont(Font.font("Poppins", FontWeight.EXTRA_LIGHT, 20));
+         info.setTextFill(Color.WHITE);
+         info.setLayoutX(468);
+         info.setLayoutY(560);
          
          // slot banner atas
-         
+         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
+         bannerAtas.setPrefSize(1100, 50);
+        
          // slot banner bawah
-         
+         bannerBawah.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
+         bannerBawah.setPrefSize(1100, 50);
+         bannerBawah.setLayoutY(750);
+        
          // slot button
+         buttonPilih.setPrefSize(110, 30);
+         buttonPilih.setLayoutX(485);
+         buttonPilih.setLayoutY(643);
+         buttonPilih.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
+         buttonPilih.setFont(Font.font("Poppins", FontWeight.BOLD, 14));
+         buttonPilih.setTextFill(Color.WHITE);
     }
     
     
