@@ -83,13 +83,12 @@ public class MainClass extends Application {
          cbox.setLayoutX(430);
          cbox.setLayoutY(600);
          cbox.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, new CornerRadii(5),Insets.EMPTY)));
+         
+         // --> Azzahry Dwi Pramudio
                 
          // slot image
          
-         info.setFont(Font.font("Poppins", FontWeight.EXTRA_LIGHT, 20));
-         info.setTextFill(Color.WHITE);
-         info.setLayoutX(468);
-         info.setLayoutY(560);
+         // slot info
          
          // slot banner atas
          
