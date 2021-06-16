@@ -25,7 +25,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public abstract class LoginMahasiswa extends Application{
+public class LoginMahasiswa{
     
     // variabel pane login mahasiswa
     private AnchorPane anchor;
@@ -40,7 +40,7 @@ public abstract class LoginMahasiswa extends Application{
     private Button simpanButton;
     private Button batalButton;
     
-    public void component(){
+    public void componentMahasiswa(){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         
