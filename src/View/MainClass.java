@@ -151,7 +151,7 @@ public class MainClass extends Application {
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
             primaryStage.close();
             
-            // combo box
+            // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
                     slideLoginMahasiswa();
