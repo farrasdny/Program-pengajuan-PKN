@@ -96,7 +96,7 @@ public class LoginMahasiswa{
         image.setLayoutY(100);
         
         namaField.setPrefSize(260, 30);
-        namaField.setPromptText("nama");
+        namaField.setPromptText("Nama");
         namaField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         namaField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         namaField.setLayoutY(490);
@@ -110,7 +110,7 @@ public class LoginMahasiswa{
         nimField.setLayoutX(420);
         
         jurusanField.setPrefSize(260, 30);
-        jurusanField.setPromptText("jurusan");
+        jurusanField.setPromptText("Jurusan");
         jurusanField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         jurusanField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         jurusanField.setLayoutY(590);
