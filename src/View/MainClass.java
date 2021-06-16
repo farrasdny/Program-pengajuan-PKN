@@ -43,7 +43,7 @@ public class MainClass extends Application {
     private Pane bannerBawah;
     private Button buttonPilih;
 
-    public void component(){
+    public void componentAwal(){
         
         // =============================================================================
         //                           DEKLARASI VARIABEL
@@ -119,23 +119,33 @@ public class MainClass extends Application {
     }
     
     public void slideLoginMahasiswa(){
-        LoginMahasiswa login = new LoginMahasiswa() {
-            @Override
-            public void start(Stage primaryStage) throws Exception {
-                //...
-            }
-        };
-        login.component();
+        LoginMahasiswa loginmahasiswa = new LoginMahasiswa();
+        loginmahasiswa.componentMahasiswa();
+    }
+    
+    public void slideLoginDosen(){
+        LoginDosen logindosen = new LoginDosen();
+        logindosen.componentDosen();
     }
     
     public void accFromOtherClass(){
-        component();
+        componentAwal();
         Stage window = new Stage();
         Scene scene = new Scene(anchor);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
             window.close();
-            slideLoginMahasiswa();
+            // combo box 
+            switch(cbox.getValue()){
+                case "Mahasiswa":
+                    slideLoginMahasiswa();  
+                    break;
+                case "Dosen":
+                    slideLoginDosen();
+                    break;
+                default:
+                    break;
+            } 
         });
                 
         window.setTitle("Program Pengajuan PKN");
@@ -145,7 +155,7 @@ public class MainClass extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        component();
+        componentAwal();
         Scene scene = new Scene(anchor);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
@@ -154,7 +164,11 @@ public class MainClass extends Application {
             // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
-                    slideLoginMahasiswa();
+                    slideLoginMahasiswa();  
+                    break;
+                case "Dosen":
+                    slideLoginDosen();
+                    break;
                 default:
                     break;
             }   
