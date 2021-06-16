@@ -128,6 +128,11 @@ public class MainClass extends Application {
         logindosen.componentDosen();
     }
     
+    public void slideLoginAdmin(){
+        LoginAdmin loginadmin = new LoginAdmin();
+        loginadmin.componentAdmin();
+    }
+    
     public void accFromOtherClass(){
         componentAwal();
         Stage window = new Stage();
@@ -143,6 +148,9 @@ public class MainClass extends Application {
                 case "Dosen":
                     slideLoginDosen();
                     break;
+                case "Admin":
+                    slideLoginAdmin();
+                    break;
                 default:
                     break;
             } 
@@ -153,7 +161,7 @@ public class MainClass extends Application {
         window.show();
     }
     
-    @Override
+   @Override
     public void start(Stage primaryStage) throws IOException {
         componentAwal();
         Scene scene = new Scene(anchor);
@@ -168,6 +176,9 @@ public class MainClass extends Application {
                     break;
                 case "Dosen":
                     slideLoginDosen();
+                    break;
+                case "Admin":
+                    slideLoginAdmin();
                     break;
                 default:
                     break;
