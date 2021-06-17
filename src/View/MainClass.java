@@ -139,17 +139,19 @@ public class MainClass extends Application {
         Scene scene = new Scene(anchor);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
-            window.close();
             // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
-                    slideLoginMahasiswa();  
+                    slideLoginMahasiswa(); 
+                    window.close();
                     break;
                 case "Dosen":
                     slideLoginDosen();
+                    window.close();
                     break;
                 case "Admin":
                     slideLoginAdmin();
+                    window.close();
                     break;
                 default:
                     break;
@@ -161,28 +163,29 @@ public class MainClass extends Application {
         window.show();
     }
     
-   @Override
+    @Override
     public void start(Stage primaryStage) throws IOException {
         componentAwal();
         Scene scene = new Scene(anchor);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
-            primaryStage.close();
-            
             // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
                     slideLoginMahasiswa();  
+                    primaryStage.close();
                     break;
                 case "Dosen":
                     slideLoginDosen();
+                    primaryStage.close();
                     break;
                 case "Admin":
                     slideLoginAdmin();
+                    primaryStage.close();
                     break;
                 default:
-                    break;
-            }   
+                    break;             
+            } 
         });
         
         primaryStage.setTitle("Program Pengajuan PKN");
