@@ -96,7 +96,7 @@ public class LoginMahasiswa{
         image.setLayoutY(100);
         
         namaField.setPrefSize(260, 30);
-        namaField.setPromptText("Nama");
+        namaField.setPromptText("nama");
         namaField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         namaField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         namaField.setLayoutY(490);
@@ -110,7 +110,7 @@ public class LoginMahasiswa{
         nimField.setLayoutX(420);
         
         jurusanField.setPrefSize(260, 30);
-        jurusanField.setPromptText("Jurusan");
+        jurusanField.setPromptText("jurusan");
         jurusanField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         jurusanField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         jurusanField.setLayoutY(590);
@@ -143,6 +143,12 @@ public class LoginMahasiswa{
             window.close();
             MainClass main = new MainClass();
             main.accFromOtherClass();
+        });
+        
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            SebagaiMahasiswa sebagaimahasiswa = new SebagaiMahasiswa();
+            sebagaimahasiswa.componentSebagaiMahasiswa();
         });
         
         Scene scene = new Scene(anchor);
