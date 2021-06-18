@@ -131,6 +131,12 @@ public class LoginDosen{
             main.accFromOtherClass();
         });
         
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            SebagaiDosen sebagaidosen = new SebagaiDosen();
+            sebagaidosen.componentSebagaiDosen();
+        });
+        
         Scene scene = new Scene(anchor);
         window.setScene(scene);
         window.show();
