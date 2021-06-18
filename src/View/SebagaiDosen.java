@@ -38,7 +38,7 @@ public class SebagaiDosen {
     private Label judulDepan;
     private Label judulDepan2;
     
-    public void componentSebagaiMahasiswa(){
+    public void componentSebagaiDosen(){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         
