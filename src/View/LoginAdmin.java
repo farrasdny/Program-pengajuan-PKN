@@ -1,4 +1,3 @@
-
 package View;
 
 import java.io.IOException;
@@ -125,6 +124,12 @@ public class LoginAdmin {
             window.close();
             MainClass main = new MainClass();
             main.accFromOtherClass();
+        });
+        
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            SebagaiAdmin sebagaiadmin = new SebagaiAdmin();
+            sebagaiadmin.componentSebagaiAdmin();
         });
         
         Scene scene = new Scene(anchor);
