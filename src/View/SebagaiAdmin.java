@@ -31,14 +31,14 @@ import javafx.stage.Stage;
 
 public class SebagaiAdmin {
     
-    // variabel pane sebagai dosen
+    // variabel pane sebagai admin
     private AnchorPane anchor;
     private Pane bannerAtas;
     private Pane bannerBawah;
     private Label judulDepan;
     private Label judulDepan2;
     
-    public void componentSebagaiMahasiswa(){
+    public void componentSebagaiAdmin(){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         
@@ -50,7 +50,7 @@ public class SebagaiAdmin {
         bannerAtas = new Pane();
         bannerBawah = new Pane();
         judulDepan = new Label("SEBAGAI");
-        judulDepan2 = new Label("DOSEN");
+        judulDepan2 = new Label("ADMIN");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN DOSEN
