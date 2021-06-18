@@ -2,6 +2,7 @@ package View;
 
 import java.io.IOException;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,7 +25,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class SebagaiMahasiswa {
+public class SebagaiMahasiswa{
     
     // variabel pane sebagai mahasiswa
     private AnchorPane anchor;
@@ -32,6 +33,9 @@ public class SebagaiMahasiswa {
     private Pane bannerBawah;
     private Label judulDepan;
     private Label judulDepan2;
+    private Button daftarUjianButton;
+    private Button ajuProposalButton;
+    private Button backButton;
     
     public void componentSebagaiMahasiswa(){
         Stage window = new Stage();
@@ -46,6 +50,9 @@ public class SebagaiMahasiswa {
         bannerBawah = new Pane();
         judulDepan = new Label("SEBAGAI");
         judulDepan2 = new Label("MAHASISWA");
+        daftarUjianButton = new Button("DAFTAR UJIAN");
+        ajuProposalButton = new Button("AJU PROPOSAL");
+        backButton = new Button("BACK");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -54,7 +61,7 @@ public class SebagaiMahasiswa {
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, daftarUjianButton, ajuProposalButton, backButton
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -66,12 +73,12 @@ public class SebagaiMahasiswa {
         
         judulDepan.setFont(Font.font("Poppins", FontWeight.LIGHT, 40));
         judulDepan.setTextFill(Color.WHITE);
-        judulDepan.setLayoutX(360);
+        judulDepan.setLayoutX(335);
         judulDepan.setLayoutY(410);
          
         judulDepan2.setFont(Font.font("Poppins", FontWeight.BOLD, 40));
         judulDepan2.setTextFill(Color.WHITE);
-        judulDepan2.setLayoutX(595);
+        judulDepan2.setLayoutX(505);
         judulDepan2.setLayoutY(410);
         
         ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
@@ -81,6 +88,27 @@ public class SebagaiMahasiswa {
         image.setLayoutX(400);
         image.setLayoutY(100);
         
+        daftarUjianButton.setPrefSize(220, 33);
+        daftarUjianButton.setLayoutY(490);
+        daftarUjianButton.setLayoutX(437);
+        daftarUjianButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        daftarUjianButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
+        daftarUjianButton.setTextFill(Color.WHITE);
+        
+        ajuProposalButton.setPrefSize(220, 33);
+        ajuProposalButton.setLayoutY(540);
+        ajuProposalButton.setLayoutX(437);
+        ajuProposalButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        ajuProposalButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
+        ajuProposalButton.setTextFill(Color.WHITE);
+        
+        backButton.setPrefSize(220, 33);
+        backButton.setLayoutY(590);
+        backButton.setLayoutX(437);
+        backButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
+        backButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
+        backButton.setTextFill(Color.WHITE);
+        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
@@ -88,5 +116,11 @@ public class SebagaiMahasiswa {
         Scene scene = new Scene(anchor);
         window.setScene(scene);
         window.show();
+        
+        backButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            LoginMahasiswa loginmahasiswa = new LoginMahasiswa();
+            loginmahasiswa.componentMahasiswa();
+        });
     }
 }
