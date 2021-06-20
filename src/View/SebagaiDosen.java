@@ -8,6 +8,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,8 +35,15 @@ public class SebagaiDosen{
     private Pane bannerBawah;
     private Label judulDepan;
     private Label judulDepan2;
-    private Button jadwalUjianButton;
+    private Button simpanButton;
     private Button backButton;
+    private TableView table;
+    private TableColumn jumlahMahasiswaColumn;
+    private TableColumn waktuColumn;
+    private TableColumn ruanganColumn;
+    private TextField jumlahMahasiswaField;
+    private TextField waktuField;
+    private TextField ruanganField;
     
     public void componentSebagaiDosen(){
         Stage window = new Stage();
@@ -46,12 +56,18 @@ public class SebagaiDosen{
         anchor = new AnchorPane();
         bannerAtas = new Pane();
         bannerBawah = new Pane();
-        judulDepan = new Label("SEBAGAI");
-        judulDepan2 = new Label("DOSEN");
-        jadwalUjianButton = new Button("JADWAL UJIAN");
+        judulDepan = new Label("MASUKKAN");
+        judulDepan2 = new Label("JADWAL");
+        simpanButton = new Button("SIMPAN JADWAL");
         backButton = new Button("BACK");
+        table = new TableView();
+        jumlahMahasiswaColumn = new TableColumn("Jumlah mahasiswa");
+        waktuColumn = new TableColumn("Waktu pelaksanaan");
+        ruanganColumn = new TableColumn("Ruangan");
+        jumlahMahasiswaField = new TextField();
+        waktuField = new TextField();
+        ruanganField = new TextField();
          
-        
         // =============================================================================
         //                          CONTROL PANE LOGIN DOSEN
         // =============================================================================
@@ -59,7 +75,8 @@ public class SebagaiDosen{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, jadwalUjianButton, backButton
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, simpanButton, backButton, table,
+                jumlahMahasiswaField, waktuField, ruanganField
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -71,34 +88,54 @@ public class SebagaiDosen{
         
         judulDepan.setFont(Font.font("Poppins", FontWeight.LIGHT, 40));
         judulDepan.setTextFill(Color.WHITE);
-        judulDepan.setLayoutX(390);
-        judulDepan.setLayoutY(410);
+        judulDepan.setLayoutX(350);
+        judulDepan.setLayoutY(65);
          
         judulDepan2.setFont(Font.font("Poppins", FontWeight.BOLD, 40));
         judulDepan2.setTextFill(Color.WHITE);
-        judulDepan2.setLayoutX(565);
-        judulDepan2.setLayoutY(410);
+        judulDepan2.setLayoutX(580);
+        judulDepan2.setLayoutY(65);
         
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
+        simpanButton.setPrefSize(300, 35);
+        simpanButton.setLayoutY(315);
+        simpanButton.setLayoutX(755);
+        simpanButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        simpanButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
+        simpanButton.setTextFill(Color.WHITE);
         
-        jadwalUjianButton.setPrefSize(220, 33);
-        jadwalUjianButton.setLayoutY(495);
-        jadwalUjianButton.setLayoutX(437);
-        jadwalUjianButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
-        jadwalUjianButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
-        jadwalUjianButton.setTextFill(Color.WHITE);
-        
-        backButton.setPrefSize(220, 33);
-        backButton.setLayoutY(540);
-        backButton.setLayoutX(437);
+        backButton.setPrefSize(300, 35);
+        backButton.setLayoutY(370);
+        backButton.setLayoutX(755);
         backButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
         backButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
         backButton.setTextFill(Color.WHITE);
+
+        table.getColumns().addAll(jumlahMahasiswaColumn, waktuColumn, ruanganColumn);
+        table.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
+        table.setPrefSize(650, 550);
+        table.setLayoutX(50);
+        table.setLayoutY(152);
+        
+        jumlahMahasiswaField.setPrefSize(300, 32);
+        jumlahMahasiswaField.setLayoutX(755);
+        jumlahMahasiswaField.setLayoutY(152);
+        jumlahMahasiswaField.setPromptText("Jumlah mahasiswa");
+        jumlahMahasiswaField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
+        jumlahMahasiswaField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
+        
+        waktuField.setPrefSize(300, 32);
+        waktuField.setLayoutX(755);
+        waktuField.setLayoutY(205);
+        waktuField.setPromptText("Waktu");
+        waktuField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
+        waktuField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
+        
+        ruanganField.setPrefSize(300, 32);
+        ruanganField.setLayoutX(755);
+        ruanganField.setLayoutY(260);
+        ruanganField.setPromptText("Ruangan");
+        ruanganField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
+        ruanganField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         
         // =============================================================================
         //                                  OPERATION
