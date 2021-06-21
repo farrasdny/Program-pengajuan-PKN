@@ -43,7 +43,7 @@ public class MainClass extends Application {
     private Pane bannerBawah;
     private Button buttonPilih;
 
-    public void component(){
+    public void componentAwal(){
         
         // =============================================================================
         //                           DEKLARASI VARIABEL
@@ -119,25 +119,47 @@ public class MainClass extends Application {
     }
     
     public void slideLoginMahasiswa(){
-        LoginMahasiswa login = new LoginMahasiswa() {
-            @Override
-            public void start(Stage primaryStage) throws Exception {
-                //...
-            }
-        };
-        login.component();
+        LoginMahasiswa loginmahasiswa = new LoginMahasiswa();
+        loginmahasiswa.componentMahasiswa();
+    }
+    
+    public void slideLoginDosen(){
+        LoginDosen logindosen = new LoginDosen();
+        logindosen.componentDosen();
+    }
+    
+    public void slideLoginAdmin(){
+        LoginAdmin loginadmin = new LoginAdmin();
+        loginadmin.componentAdmin();
     }
     
     public void accFromOtherClass(){
-        component();
+        componentAwal();
         Stage window = new Stage();
         Scene scene = new Scene(anchor);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
-            window.close();
-            slideLoginMahasiswa();
+            // combo box 
+            switch(cbox.getValue()){
+                case "Mahasiswa":
+                    slideLoginMahasiswa(); 
+                    window.close();
+                    break;
+                case "Dosen":
+                    slideLoginDosen();
+                    window.close();
+                    break;
+                case "Admin":
+                    slideLoginAdmin();
+                    window.close();
+                    break;
+                default:
+                    break;
+            } 
         });
-                
+        Image icon = new Image("/View/logo2.png");
+        
+        window.getIcons().add(icon);        
         window.setTitle("Program Pengajuan PKN");
         window.setScene(scene);
         window.show();
@@ -145,21 +167,31 @@ public class MainClass extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        component();
+        componentAwal();
         Scene scene = new Scene(anchor);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
-            primaryStage.close();
-            
             // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
-                    slideLoginMahasiswa();
-                default:
+                    slideLoginMahasiswa();  
+                    primaryStage.close();
                     break;
-            }   
+                case "Dosen":
+                    slideLoginDosen();
+                    primaryStage.close();
+                    break;
+                case "Admin":
+                    slideLoginAdmin();
+                    primaryStage.close();
+                    break;
+                default:
+                    break;             
+            } 
         });
+        Image icon = new Image("/View/logo2.png");
         
+        primaryStage.getIcons().add(icon);
         primaryStage.setTitle("Program Pengajuan PKN");
         primaryStage.setScene(scene);
         primaryStage.show();

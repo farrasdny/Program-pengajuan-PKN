@@ -24,9 +24,11 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
-public class LoginMahasiswa{
-    
+/**
+ *
+ * @author ACER
+ */
+public class LoginDosen{
     // variabel pane login mahasiswa
     private AnchorPane anchor;
     private Pane bannerAtas;
@@ -34,13 +36,11 @@ public class LoginMahasiswa{
     private Label judulDepan;
     private Label judulDepan2;
     private TextField namaField;
-    private TextField nimField;
-    private TextField jurusanField;
-    private Label jurusanLabel;
+    private TextField prodiField;
     private Button simpanButton;
     private Button batalButton;
     
-    public void componentMahasiswa(){
+    public void componentDosen(){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         
@@ -52,11 +52,9 @@ public class LoginMahasiswa{
         bannerAtas = new Pane();
         bannerBawah = new Pane();
         judulDepan = new Label("INPUT DATA");
-        judulDepan2 = new Label("MAHASISWA");
+        judulDepan2 = new Label("DOSEN");
         namaField = new TextField();
-        nimField = new TextField();
-        jurusanField = new TextField();
-        jurusanLabel = new Label("jurusan");
+        prodiField = new TextField();
         simpanButton = new Button("SIMPAN");
         batalButton = new Button("BATAL");
         
@@ -67,7 +65,7 @@ public class LoginMahasiswa{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, namaField, nimField, jurusanField,
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, namaField, prodiField,
                 simpanButton, batalButton
         );
         
@@ -80,12 +78,12 @@ public class LoginMahasiswa{
         
         judulDepan.setFont(Font.font("Poppins", FontWeight.LIGHT, 40));
         judulDepan.setTextFill(Color.WHITE);
-        judulDepan.setLayoutX(305);
+        judulDepan.setLayoutX(360);
         judulDepan.setLayoutY(410);
          
         judulDepan2.setFont(Font.font("Poppins", FontWeight.BOLD, 40));
         judulDepan2.setTextFill(Color.WHITE);
-        judulDepan2.setLayoutX(540);
+        judulDepan2.setLayoutX(595);
         judulDepan2.setLayoutY(410);
         
         ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
@@ -96,30 +94,18 @@ public class LoginMahasiswa{
         image.setLayoutY(100);
         
         namaField.setPrefSize(260, 30);
-        namaField.setPromptText("nama");
+        namaField.setPromptText("Nama");
         namaField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         namaField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         namaField.setLayoutY(490);
         namaField.setLayoutX(420);
         
-        nimField.setPrefSize(260, 30);
-        nimField.setPromptText("NIM");
-        nimField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
-        nimField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
-        nimField.setLayoutY(540);
-        nimField.setLayoutX(420);
-        
-        jurusanField.setPrefSize(260, 30);
-        jurusanField.setPromptText("jurusan");
-        jurusanField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
-        jurusanField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
-        jurusanField.setLayoutY(590);
-        jurusanField.setLayoutX(420);
-        
-        jurusanLabel.setFont(Font.font("Poppins", FontWeight.LIGHT, 20));
-        jurusanLabel.setTextFill(Color.WHITE);
-        jurusanLabel.setLayoutX(380);
-        jurusanLabel.setLayoutY(555);
+        prodiField.setPrefSize(260, 30);
+        prodiField.setPromptText("Program Studi");
+        prodiField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
+        prodiField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
+        prodiField.setLayoutY(540);
+        prodiField.setLayoutX(420);
         
         simpanButton.setPrefSize(125, 30);
         simpanButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
@@ -147,10 +133,10 @@ public class LoginMahasiswa{
         
         simpanButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
-            SebagaiMahasiswa sebagaimahasiswa = new SebagaiMahasiswa();
-            sebagaimahasiswa.componentSebagaiMahasiswa();
+            SebagaiDosen sebagaidosen = new SebagaiDosen();
+            sebagaidosen.componentSebagaiDosen();
         });
-        
+               
         Scene scene = new Scene(anchor);
         
         Image icon = new Image("/View/logo2.png");
@@ -159,5 +145,5 @@ public class LoginMahasiswa{
         window.setTitle("Program Pengajuan PKN");
         window.setScene(scene);
         window.show();
-    }     
+    }
 }
