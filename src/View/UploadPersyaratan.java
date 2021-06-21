@@ -98,7 +98,6 @@ public class UploadPersyaratan extends DaftarUjianMahasiswa{
         
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
-            daftarButton.setVisible(false);
         });
         
         buttonNilai.setOnMousePressed((MouseEvent event) -> {
