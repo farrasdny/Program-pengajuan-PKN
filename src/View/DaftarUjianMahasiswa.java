@@ -40,6 +40,7 @@ public class DaftarUjianMahasiswa{
     private TableColumn jurusanColumn;
     private Button buttonUpload;
     public Button daftarButton;
+    private Button backButton;
         
     public void componentDaftarUjian(){
         Stage window = new Stage();
@@ -61,6 +62,7 @@ public class DaftarUjianMahasiswa{
         jurusanColumn = new TableColumn("Jurusan");
         buttonUpload = new Button("UPLOAD PERSYARATAN");
         daftarButton = new Button("DAFTAR UJIAN");
+        backButton = new Button("BACK");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -71,7 +73,7 @@ public class DaftarUjianMahasiswa{
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.setEffect(null);
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, tableData, buttonUpload, daftarButton
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, tableData, buttonUpload, daftarButton, backButton
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -112,7 +114,7 @@ public class DaftarUjianMahasiswa{
         buttonUpload.setPrefSize(220, 35);
         buttonUpload.setLayoutX(437);
         buttonUpload.setLayoutY(580);
-        buttonUpload.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        buttonUpload.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
         buttonUpload.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         buttonUpload.setTextFill(Color.WHITE);
         
@@ -123,14 +125,14 @@ public class DaftarUjianMahasiswa{
         daftarButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         daftarButton.setTextFill(Color.WHITE);
         daftarButton.setVisible(false);
+        
+        backButton.setPrefSize(220, 35);
+        backButton.setLayoutX(437);
+        backButton.setLayoutY(680);
+        backButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        backButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
+        backButton.setTextFill(Color.WHITE);
 
-        Scene scene = new Scene(anchor);
-        Image icon = new Image("/View/logo2.png");
-        
-        window.getIcons().add(icon);
-        window.setScene(scene);
-        window.show();
-        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
@@ -140,5 +142,18 @@ public class DaftarUjianMahasiswa{
             uploadpersyaratan.componentUploadPersyaratan();
             daftarButton.setVisible(true);
         }); 
+        
+        backButton.setOnMousePressed((MouseEvent event) -> { 
+            SebagaiMahasiswa mahasiswa = new SebagaiMahasiswa();
+            mahasiswa.componentSebagaiMahasiswa();
+        }); 
+        
+        Scene scene = new Scene(anchor);
+        Image icon = new Image("/View/logo2.png");
+        
+        window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
+        window.setScene(scene);
+        window.show();
     }
 }
