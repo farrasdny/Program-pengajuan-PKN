@@ -125,6 +125,7 @@ public class SebagaiAdmin{
         Image icon = new Image("/View/logo2.png");
         
         window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
         window.setScene(scene);
         window.show();
         
