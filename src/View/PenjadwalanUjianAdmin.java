@@ -39,6 +39,7 @@ public class PenjadwalanUjianAdmin{
     private Button simpanButton;
     private Button backButton;
     private ListView list;
+    private Label textSelamat;
 
     public void componentPenjadwalan(){
         Stage window = new Stage();
@@ -58,6 +59,7 @@ public class PenjadwalanUjianAdmin{
         simpanButton = new Button("SAVE");
         backButton = new Button("BACK");
         list = new ListView();
+        textSelamat = new Label("Nilai berhasil di upload");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -66,7 +68,8 @@ public class PenjadwalanUjianAdmin{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, nilaiButton, backButton, simpanButton, list
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, nilaiButton, backButton, simpanButton, list,
+                textSelamat
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -86,7 +89,7 @@ public class PenjadwalanUjianAdmin{
         judulDepan2.setLayoutX(621);
         judulDepan2.setLayoutY(390);
         
-        info.setFont(Font.font("Poppins", FontWeight.BOLD, 20));
+        info.setFont(Font.font("Poppins", FontWeight.LIGHT, 20));
         info.setTextFill(Color.WHITE);
         info.setLayoutX(390);
         info.setLayoutY(450);
@@ -124,6 +127,12 @@ public class PenjadwalanUjianAdmin{
         backButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
         backButton.setTextFill(Color.WHITE);
         
+        textSelamat.setFont(Font.font("Poppins", FontWeight.LIGHT, 15));
+        textSelamat.setTextFill(Color.WHITE);
+        textSelamat.setLayoutX(463);
+        textSelamat.setLayoutY(715);
+        textSelamat.setVisible(false);
+        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
@@ -146,6 +155,10 @@ public class PenjadwalanUjianAdmin{
             window.close();
             SebagaiAdmin admin = new SebagaiAdmin();
             admin.componentSebagaiAdmin();
+        });
+        
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            textSelamat.setVisible(true);
         });
         
         Scene scene = new Scene(anchor);
