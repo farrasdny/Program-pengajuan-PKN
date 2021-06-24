@@ -34,6 +34,7 @@ public class DaftarUjianMahasiswa{
     private Label judulDepan;
     private Label judulDepan2;
     private Label info;
+    private Label textSelamat;
     private TableView tableData;
     private TableColumn namaColumn;
     private TableColumn nimColumn;
@@ -63,6 +64,7 @@ public class DaftarUjianMahasiswa{
         buttonUpload = new Button("UPLOAD PERSYARATAN");
         daftarButton = new Button("DAFTAR UJIAN");
         backButton = new Button("BACK");
+        textSelamat = new Label("Anda telah menjadi peserta ujian PKN");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -73,7 +75,8 @@ public class DaftarUjianMahasiswa{
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.setEffect(null);
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, tableData, buttonUpload, daftarButton, backButton
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, tableData, buttonUpload, daftarButton, backButton,
+                textSelamat
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -132,6 +135,17 @@ public class DaftarUjianMahasiswa{
         backButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
         backButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         backButton.setTextFill(Color.WHITE);
+        
+        judulDepan.setFont(Font.font("Poppins", FontWeight.LIGHT, 40));
+        judulDepan.setTextFill(Color.WHITE);
+        judulDepan.setLayoutX(340);
+        judulDepan.setLayoutY(390);
+        
+        textSelamat.setFont(Font.font("Poppins", FontWeight.LIGHT, 15));
+        textSelamat.setTextFill(Color.WHITE);
+        textSelamat.setLayoutX(420);
+        textSelamat.setLayoutY(720);
+        textSelamat.setVisible(false);
 
         // =============================================================================
         //                                  OPERATION
@@ -144,9 +158,14 @@ public class DaftarUjianMahasiswa{
         }); 
         
         backButton.setOnMousePressed((MouseEvent event) -> { 
+            window.close();
             SebagaiMahasiswa mahasiswa = new SebagaiMahasiswa();
             mahasiswa.componentSebagaiMahasiswa();
         }); 
+        
+        daftarButton.setOnMousePressed((MouseEvent event) ->{
+            textSelamat.setVisible(true);
+        });
         
         Scene scene = new Scene(anchor);
         Image icon = new Image("/View/logo2.png");
