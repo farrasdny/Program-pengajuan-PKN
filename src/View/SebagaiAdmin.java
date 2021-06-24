@@ -120,19 +120,32 @@ public class SebagaiAdmin{
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
-        
-        Scene scene = new Scene(anchor);
-        Image icon = new Image("/View/logo2.png");
-        
-        window.getIcons().add(icon);
-        window.setTitle("Program Pengajuan PKN");
-        window.setScene(scene);
-        window.show();
-        
+
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
             LoginAdmin loginadmin = new LoginAdmin();
             loginadmin.componentAdmin();
         });
+        
+        jadwalUjianButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            PenjadwalanUjianAdmin jadwalUjian = new PenjadwalanUjianAdmin();
+            jadwalUjian.componentPenjadwalan();
+        });
+        
+        nilaiButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            NilaiPKNAdmin nilai = new NilaiPKNAdmin();
+            nilai.componentNilai();
+        });
+        
+        
+        Scene scene = new Scene(anchor);
+        
+        Image icon = new Image("/View/logo2.png");
+        window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
+        window.setScene(scene);
+        window.show();
     }
 }
