@@ -38,6 +38,7 @@ public class ApprovalAdmin{
     private Button kirimButton;
     private Button suratButton;
     private Button backButton;
+    private Label textSelamat;
     
     public void componentApproval(){
         Stage window = new Stage();
@@ -58,6 +59,7 @@ public class ApprovalAdmin{
         kirimButton = new Button("KIRIM KE PERUSAHAAN");
         backButton = new Button("BACK");
         suratButton = new Button("SURAT BALASAN");
+        textSelamat = new Label("Data telah terkirim, mohon menunggu surat balasan dari perusahaan");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -69,7 +71,7 @@ public class ApprovalAdmin{
         anchor.setEffect(null);
         anchor.getChildren().addAll(
                 bannerAtas, bannerBawah, judulDepan, judulDepan2, jumlahAnggotaField, waktuField, tempatField,
-                kirimButton, suratButton, backButton
+                kirimButton, suratButton, backButton, textSelamat
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -138,6 +140,12 @@ public class ApprovalAdmin{
         backButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         backButton.setTextFill(Color.WHITE);
         
+        textSelamat.setFont(Font.font("Poppins", FontWeight.LIGHT, 15));
+        textSelamat.setTextFill(Color.WHITE);
+        textSelamat.setLayoutX(325);
+        textSelamat.setLayoutY(720);
+        textSelamat.setVisible(false);
+        
         suratButton.setOnMousePressed((MouseEvent event) -> {
             SuratBalasan suratbalasan = new SuratBalasan();
             suratbalasan.componentSuratBalasan();
@@ -147,6 +155,10 @@ public class ApprovalAdmin{
             window.close();
             SebagaiAdmin sebagaiadmin = new SebagaiAdmin();
             sebagaiadmin.componentSebagaiAdmin();
+        });
+        
+        kirimButton.setOnMousePressed((MouseEvent event) -> {
+            textSelamat.setVisible(true);
         });
         
         Scene scene = new Scene(anchor);
