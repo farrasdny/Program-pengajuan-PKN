@@ -50,7 +50,7 @@ public class SebagaiAdmin{
         bannerBawah = new Pane();
         judulDepan = new Label("SEBAGAI");
         judulDepan2 = new Label("ADMIN");
-        approveButton = new Button("APPROVE");
+        approveButton = new Button("APPROVAL");
         jadwalUjianButton = new Button ("PENJADWALAN UJIAN");
         nilaiButton = new Button("NILAI PKN");
         backButton = new Button("BACK");
@@ -120,11 +120,25 @@ public class SebagaiAdmin{
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
-
+        
+        Scene scene = new Scene(anchor);
+        Image icon = new Image("/View/logo2.png");
+        
+        window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
+        window.setScene(scene);
+        window.show();
+        
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
             LoginAdmin loginadmin = new LoginAdmin();
             loginadmin.componentAdmin();
+        });
+        
+        approveButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            ApprovalAdmin approvaladmin = new ApprovalAdmin();
+            approvaladmin.componentApproval();       
         });
         
         jadwalUjianButton.setOnMousePressed((MouseEvent event) -> {
@@ -138,14 +152,5 @@ public class SebagaiAdmin{
             NilaiPKNAdmin nilai = new NilaiPKNAdmin();
             nilai.componentNilai();
         });
-        
-        
-        Scene scene = new Scene(anchor);
-        
-        Image icon = new Image("/View/logo2.png");
-        window.getIcons().add(icon);
-        window.setTitle("Program Pengajuan PKN");
-        window.setScene(scene);
-        window.show();
     }
 }
