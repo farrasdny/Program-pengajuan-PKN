@@ -49,7 +49,7 @@ public class UploadPersyaratan extends DaftarUjianMahasiswa{
         // =============================================================================
         
         anchor2.setPrefSize(500 , 300);
-        anchor2.setStyle("-fx-background-color: #FFFFFF;");
+        anchor2.setStyle("-fx-background-color: #DFDFDF;");
         anchor2.getChildren().addAll(
                 buttonUpload, backButton, list, buttonNilai, buttonLaporan
         );
@@ -114,9 +114,22 @@ public class UploadPersyaratan extends DaftarUjianMahasiswa{
             }
         });
         
+        buttonLaporan.setOnMousePressed((MouseEvent event) -> {
+            FileChooser fc = new FileChooser();
+            fc.setInitialDirectory(new File("E:\\Documents\\UMM\\Tugas\\Semester 2\\Pemrograman Berbasis Objek\\Panduan_tugas akhir"));
+            fc.getExtensionFilters().addAll(new ExtensionFilter("PDF Files", "*.pdf"));
+            
+            File selectedFile = fc.showOpenDialog(null);
+            if(selectedFile != null){
+                list.getItems().add(selectedFile.getAbsolutePath());
+            }
+            else{
+                System.out.println("file is not valid");
+            }
+        });
+        
         buttonUpload.setOnMousePressed((MouseEvent event) -> {
             window.close();
-            
         });
     }
 }
