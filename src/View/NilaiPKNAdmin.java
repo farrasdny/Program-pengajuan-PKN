@@ -43,6 +43,7 @@ public class NilaiPKNAdmin{
     private Button backButton;
     private ListView list1;
     private ListView list2;
+    private Label textSelamat;
     
     public void componentNilai(){
         Stage window = new Stage();
@@ -65,6 +66,7 @@ public class NilaiPKNAdmin{
         backButton = new Button("BACK");
         list1 = new ListView();
         list2 = new ListView();
+        textSelamat = new Label("Nilai berhasil di upload");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -73,7 +75,8 @@ public class NilaiPKNAdmin{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, info2, nilaiButton, nilai2Button, simpanButton, backButton, list1, list2
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, info2, nilaiButton, nilai2Button, simpanButton, backButton, list1, 
+                list2, textSelamat
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -103,11 +106,11 @@ public class NilaiPKNAdmin{
         info2.setLayoutX(387);
         info2.setLayoutY(555);
         
-        list1.setPrefSize(200, 30);
+        list1.setPrefSize(200, 35);
         list1.setLayoutX(505);
         list1.setLayoutY(515);
         
-        list2.setPrefSize(200, 30);
+        list2.setPrefSize(200, 35);
         list2.setLayoutX(505);
         list2.setLayoutY(590);
         
@@ -146,6 +149,12 @@ public class NilaiPKNAdmin{
         backButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
         backButton.setTextFill(Color.WHITE);
         
+        textSelamat.setFont(Font.font("Poppins", FontWeight.LIGHT, 15));
+        textSelamat.setTextFill(Color.WHITE);
+        textSelamat.setLayoutX(463);
+        textSelamat.setLayoutY(723);
+        textSelamat.setVisible(false);
+        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
@@ -182,6 +191,10 @@ public class NilaiPKNAdmin{
             window.close();
             SebagaiAdmin admin = new SebagaiAdmin();
             admin.componentSebagaiAdmin();
+        });
+        
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            textSelamat.setVisible(true);
         });
         
         Scene scene = new Scene(anchor);
