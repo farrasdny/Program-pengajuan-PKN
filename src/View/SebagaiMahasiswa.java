@@ -36,6 +36,7 @@ public class SebagaiMahasiswa{
     private Button daftarUjianButton;
     private Button ajuProposalButton;
     private Button backButton;
+    private TextField cv;
     
     public void componentSebagaiMahasiswa(){
         Stage window = new Stage();
@@ -55,7 +56,7 @@ public class SebagaiMahasiswa{
         backButton = new Button("BACK");
         
         // =============================================================================
-        //                          CONTROL PANE SEBAGAI MAHASISWA
+        //                          CONTROL PANE LOGIN
         // =============================================================================
         
         anchor.setPrefSize(1100 , 800);
@@ -108,18 +109,13 @@ public class SebagaiMahasiswa{
         backButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
         backButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
         backButton.setTextFill(Color.WHITE);
-
+        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
         
-        Scene scene = new Scene(anchor);
-        Image icon = new Image("/View/logo2.png");
         
-        window.getIcons().add(icon);
-        window.setTitle("Program Pengajuan PKN");
-        window.setScene(scene);
-        window.show();
+        
         
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
@@ -129,8 +125,22 @@ public class SebagaiMahasiswa{
         
         daftarUjianButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
-            DaftarUjianMahasiswa ujianmahasiswa = new DaftarUjianMahasiswa();
-            ujianmahasiswa.componentDaftarUjian();
+            DaftarUjianMahasiswa daftarujian = new DaftarUjianMahasiswa();
+            daftarujian.componentDaftarUjian();
         });
+        
+        ajuProposalButton.setOnMousePressed((MouseEvent event) ->{
+            window.close();
+            AjuProposalMahasiswa ajuproposal = new AjuProposalMahasiswa();
+            ajuproposal.proposalMahasiswa();
+        });
+        
+        Scene scene = new Scene(anchor);
+        
+        Image icon = new Image("/View/logo2.png");
+        window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
+        window.setScene(scene);
+        window.show();
     }
 }
