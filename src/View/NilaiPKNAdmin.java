@@ -41,7 +41,8 @@ public class NilaiPKNAdmin{
     private Button nilai2Button;
     private Button simpanButton;
     private Button backButton;
-    private ListView list;
+    private ListView list1;
+    private ListView list2;
     
     public void componentNilai(){
         Stage window = new Stage();
@@ -56,13 +57,14 @@ public class NilaiPKNAdmin{
         bannerBawah = new Pane();
         judulDepan = new Label(" NILAI");
         judulDepan2 = new Label(" PKN");
-        info = new Label(" NILAI PKN DARI PERUSAHAAN");
-        info2 = new Label(" NILAI UJIAN");
+        info = new Label("Nilai PKN dari perusahaan");
+        info2 = new Label("Nilai ujian");
         nilaiButton = new Button("upload nilai");
         nilai2Button = new Button("upload nilai");
         simpanButton = new Button("SAVE");
         backButton = new Button("BACK");
-        list = new ListView();
+        list1 = new ListView();
+        list2 = new ListView();
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -71,7 +73,7 @@ public class NilaiPKNAdmin{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, info2, nilaiButton, nilai2Button, simpanButton, backButton, list
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, info2, nilaiButton, nilai2Button, simpanButton, backButton, list1, list2
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -83,27 +85,31 @@ public class NilaiPKNAdmin{
         
         judulDepan.setFont(Font.font("Poppins", FontWeight.LIGHT, 40));
         judulDepan.setTextFill(Color.WHITE);
-        judulDepan.setLayoutX(423);
+        judulDepan.setLayoutX(432);
         judulDepan.setLayoutY(410);
          
         judulDepan2.setFont(Font.font("Poppins", FontWeight.BOLD, 40));
         judulDepan2.setTextFill(Color.WHITE);
-        judulDepan2.setLayoutX(545);
+        judulDepan2.setLayoutX(543);
         judulDepan2.setLayoutY(410);
         
-        info.setFont(Font.font("Poppins", FontWeight.BOLD, 20));
+        info.setFont(Font.font("Poppins", FontWeight.LIGHT, 20));
         info.setTextFill(Color.WHITE);
-        info.setLayoutX(227);
+        info.setLayoutX(387);
         info.setLayoutY(480);
         
-        info2.setFont(Font.font("Poppins", FontWeight.BOLD, 20));
+        info2.setFont(Font.font("Poppins", FontWeight.LIGHT, 20));
         info2.setTextFill(Color.WHITE);
-        info2.setLayoutX(227);
+        info2.setLayoutX(387);
         info2.setLayoutY(555);
         
-        list.setPrefSize(290, 142);
-        list.setLayoutX(560);
-        list.setLayoutY(483);
+        list1.setPrefSize(200, 30);
+        list1.setLayoutX(505);
+        list1.setLayoutY(515);
+        
+        list2.setPrefSize(200, 30);
+        list2.setLayoutX(505);
+        list2.setLayoutY(590);
         
         // Setting Image
         ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
@@ -114,14 +120,14 @@ public class NilaiPKNAdmin{
         image.setLayoutY(100);
         
         //setting button
-        nilaiButton.setPrefSize(120, 30);
-        nilaiButton.setLayoutX(230);
+        nilaiButton.setPrefSize(110, 30);
+        nilaiButton.setLayoutX(385);
         nilaiButton.setLayoutY(515);
         nilaiButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         nilaiButton.setTextFill(Color.GRAY);
         
-        nilai2Button.setPrefSize(120, 30);
-        nilai2Button.setLayoutX(230);
+        nilai2Button.setPrefSize(110, 30);
+        nilai2Button.setLayoutX(385);
         nilai2Button.setLayoutY(590);
         nilai2Button.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         nilai2Button.setTextFill(Color.GRAY);
@@ -151,7 +157,7 @@ public class NilaiPKNAdmin{
 
             File selectedFile = fc.showOpenDialog(null);
             if(selectedFile != null){
-                list.getItems().add(selectedFile.getAbsolutePath());
+                list1.getItems().add(selectedFile.getAbsolutePath());
             }
             else{
                 System.out.println("file is not valid");
@@ -165,7 +171,7 @@ public class NilaiPKNAdmin{
 
             File selectedFile = fc.showOpenDialog(null);
             if(selectedFile != null){
-                list.getItems().add(selectedFile.getAbsolutePath());
+                list2.getItems().add(selectedFile.getAbsolutePath());
             }
             else{
                 System.out.println("file is not valid");
