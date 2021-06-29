@@ -1,7 +1,14 @@
 package View;
 
+import Model.Mahasiswa;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,10 +43,10 @@ public class DaftarUjianMahasiswa{
     private Label judulDepan2;
     private Label info;
     private Label textSelamat;
-    private TableView tableData;
-    private TableColumn namaColumn;
-    private TableColumn nimColumn;
-    private TableColumn jurusanColumn;
+    public TableView <Mahasiswa> tableData;
+    private TableColumn <Mahasiswa, String> namaColumn;
+    private TableColumn <Mahasiswa, String> nimColumn;
+    private TableColumn <Mahasiswa, String> jurusanColumn;
     private Button buttonUpload;
     public Button daftarButton;
     private Button backButton;
@@ -167,6 +175,7 @@ public class DaftarUjianMahasiswa{
             textSelamat.setVisible(true);
         });
         
+        showMahasiswa();
         Scene scene = new Scene(anchor);
         Image icon = new Image("/View/logo2.png");
         
@@ -174,5 +183,53 @@ public class DaftarUjianMahasiswa{
         window.setTitle("Program Pengajuan PKN");
         window.setScene(scene);
         window.show();
+    }
+    
+    // =============================================================================
+    //                              DATABASE OPERATION
+    // =============================================================================
+    
+    Connection conn;
+    public Connection getConnection(){
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Program_pengajuan_PKN", "root", "");
+            return conn;
+        }
+        catch(Exception e){ 
+            System.out.println("Error : " + e.getMessage());
+            return null;
+        }
+    }  
+    
+    public ObservableList<Mahasiswa> getMahasiswaList(){
+        ObservableList<Mahasiswa> mahasiswaList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+        String query = "SELECT * FROM data_mahasiswa";
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Mahasiswa mahasiswa;
+            while(rs.next()){
+                mahasiswa = new Mahasiswa(rs.getString("nama"), rs.getString("nim"), rs.getString("jurusan"));
+                mahasiswaList.add(mahasiswa);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return mahasiswaList;
+    }
+    
+    public void showMahasiswa(){
+        ObservableList<Mahasiswa> list = getMahasiswaList();
+        
+        namaColumn.setCellValueFactory(new PropertyValueFactory<Mahasiswa, String>("nama"));
+        nimColumn.setCellValueFactory(new PropertyValueFactory<Mahasiswa, String>("nim"));
+        jurusanColumn.setCellValueFactory(new PropertyValueFactory<Mahasiswa, String>("jurusan"));
+        
+        tableData.setItems(list);
     }
 }
