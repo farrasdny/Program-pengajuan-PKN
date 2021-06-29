@@ -1,7 +1,15 @@
 package View;
 
+import Model.Dosen;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -37,10 +46,11 @@ public class SebagaiDosen{
     private Label judulDepan2;
     private Button simpanButton;
     private Button backButton;
-    private TableView table;
-    private TableColumn jumlahMahasiswaColumn;
-    private TableColumn waktuColumn;
-    private TableColumn ruanganColumn;
+    private Button tampilButton;
+    private TableView <Dosen> table;
+    private TableColumn <Dosen, Integer> jumlahMahasiswaColumn;
+    private TableColumn <Dosen, String> waktuColumn;
+    private TableColumn <Dosen, String> ruanganColumn;
     private TextField jumlahMahasiswaField;
     private TextField waktuField;
     private TextField ruanganField;
@@ -60,6 +70,7 @@ public class SebagaiDosen{
         judulDepan2 = new Label("JADWAL");
         simpanButton = new Button("SIMPAN JADWAL");
         backButton = new Button("BACK");
+        tampilButton = new Button("TAMPIL JADWAL");
         table = new TableView();
         jumlahMahasiswaColumn = new TableColumn("Jumlah mahasiswa");
         waktuColumn = new TableColumn("Waktu pelaksanaan");
@@ -76,7 +87,7 @@ public class SebagaiDosen{
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
                 bannerAtas, bannerBawah, judulDepan, judulDepan2, simpanButton, backButton, table,
-                jumlahMahasiswaField, waktuField, ruanganField
+                jumlahMahasiswaField, waktuField, ruanganField, tampilButton
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -99,16 +110,23 @@ public class SebagaiDosen{
         simpanButton.setPrefSize(300, 35);
         simpanButton.setLayoutY(315);
         simpanButton.setLayoutX(755);
-        simpanButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        simpanButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
         simpanButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
         simpanButton.setTextFill(Color.WHITE);
         
         backButton.setPrefSize(300, 35);
-        backButton.setLayoutY(370);
+        backButton.setLayoutY(427);
         backButton.setLayoutX(755);
-        backButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
+        backButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
         backButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
         backButton.setTextFill(Color.WHITE);
+        
+        tampilButton.setPrefSize(300, 35);
+        tampilButton.setLayoutY(370);
+        tampilButton.setLayoutX(755);
+        tampilButton.setBackground(new Background(new BackgroundFill(Color.DARKORANGE, new CornerRadii(5),Insets.EMPTY)));
+        tampilButton.setFont(Font.font("Poppins", FontWeight.BOLD, 13));
+        tampilButton.setTextFill(Color.WHITE);
 
         table.getColumns().addAll(jumlahMahasiswaColumn, waktuColumn, ruanganColumn);
         table.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
@@ -137,6 +155,14 @@ public class SebagaiDosen{
         ruanganField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         ruanganField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/fuiyoh2.jpg")));
+        anchor.getChildren().add(image);
+        image.setFitHeight(240);
+        image.setFitWidth(280);
+        image.setLayoutX(765);
+        image.setLayoutY(480);
+        image.setVisible(false);
+        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
@@ -153,6 +179,72 @@ public class SebagaiDosen{
             window.close();
             LoginDosen logindosen = new LoginDosen();
             logindosen.componentDosen();
+        });          
+        
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            String query = "INSERT INTO jadwal_dosen(JumlahMahasiswa, Waktu, Ruangan) VALUES ('"+jumlahMahasiswaField.getText()+"','"+waktuField.getText()+"','"+ruanganField.getText()+"')";
+            executeQuery(query);
+            showJadwalDosen();
         });
+        
+        tampilButton.setOnMousePressed((MouseEvent event) -> {
+            showJadwalDosen();
+            image.setVisible(true);
+        });
+    }
+    
+    public Connection getConnection(){
+        Connection conn;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/programpkn", "root", "");
+            return conn;
+        }catch(SQLException e){
+            System.out.println("Error : "+e.getMessage());
+            return null;
+        }
+    }
+    
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+    
+    public ObservableList<Dosen> getDosenList(){
+        ObservableList<Dosen> dosenList = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+        String query = "SELECT * FROM jadwal_dosen";
+        Statement st;
+        ResultSet rs;
+        
+        try{
+            st = conn.createStatement();
+            rs = st.executeQuery(query);
+            Dosen dosen;
+            while(rs.next()){
+                dosen = new Dosen(rs.getInt("jumlahMahasiswa"), rs.getString("waktu"), rs.getString("ruangan"));
+                dosenList.add(dosen);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return dosenList;
+    }
+    
+    public void showJadwalDosen(){
+        ObservableList<Dosen> list = getDosenList();
+        
+        jumlahMahasiswaColumn.setCellValueFactory(new PropertyValueFactory<Dosen, Integer>("jumlahMahasiswa"));
+        waktuColumn.setCellValueFactory(new PropertyValueFactory<Dosen, String>("waktu"));
+        ruanganColumn.setCellValueFactory(new PropertyValueFactory<Dosen, String>("ruangan"));
+        
+        table.setItems(list);
     }
 }
