@@ -157,7 +157,7 @@ public class LoginAdmin {
             window.close();
             SebagaiAdmin sebagaiadmin = new SebagaiAdmin();
             sebagaiadmin.componentSebagaiAdmin();
-            String query = "INSERT INTO data_admin(Username, Jurusan) VALUES ('"+usernameField.getText()+"','"+passwordField.getText()+"')";
+            String query = "INSERT INTO data_admin(Username, Password) VALUES ('"+usernameField.getText()+"','"+passwordField.getText()+"')";
             executeQuery(query);
         });
         
@@ -180,7 +180,7 @@ public class LoginAdmin {
     public Connection getConnection(){
         Connection conn;
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/program_pengajuan_pkn", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/programpkn", "root", "");
             return conn;
         }catch(SQLException e){
             System.out.println("Error : "+e.getMessage());
