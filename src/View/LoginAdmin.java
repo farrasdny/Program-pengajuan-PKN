@@ -1,6 +1,10 @@
 package View;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoginAdmin {
-     private AnchorPane anchor;
+    private AnchorPane anchor;
     private Pane bannerAtas;
     private Pane bannerBawah;
     private Label judulDepan;
@@ -34,6 +38,9 @@ public class LoginAdmin {
     private TextField passwordField;
     private Button simpanButton;
     private Button batalButton;
+    private Button tanyaButton;
+    private Label info;
+    private Label info2;
     
     public void componentAdmin(){
         Stage window = new Stage();
@@ -52,6 +59,9 @@ public class LoginAdmin {
         passwordField = new TextField();
         simpanButton = new Button("SIMPAN");
         batalButton = new Button("BATAL");
+        tanyaButton = new Button("CLICK HERE");
+        info = new Label("anda sudah login?");
+        info2 = new Label("klik di bawah ini");
         
         // =============================================================================
         //                          CONTROL PANE LOGIN
@@ -61,7 +71,7 @@ public class LoginAdmin {
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
                 bannerAtas, bannerBawah, judulDepan, judulDepan2, usernameField, passwordField,
-                simpanButton, batalButton
+                simpanButton, batalButton, tanyaButton, info, info2
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -107,14 +117,31 @@ public class LoginAdmin {
         simpanButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         simpanButton.setTextFill(Color.WHITE);
         simpanButton.setLayoutX(554);
-        simpanButton.setLayoutY(638);
+        simpanButton.setLayoutY(588);
         
         batalButton.setPrefSize(125, 30);
         batalButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
         batalButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         batalButton.setTextFill(Color.WHITE);
         batalButton.setLayoutX(420);
-        batalButton.setLayoutY(638);
+        batalButton.setLayoutY(588);
+        
+        tanyaButton.setPrefSize(125, 30);
+        tanyaButton.setBackground(new Background(new BackgroundFill(Color.DARKORANGE, new CornerRadii(5),Insets.EMPTY)));
+        tanyaButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
+        tanyaButton.setTextFill(Color.WHITE);
+        tanyaButton.setLayoutX(485);
+        tanyaButton.setLayoutY(650);
+        
+        info.setFont(Font.font("Poppins", FontWeight.LIGHT, 12));
+        info.setTextFill(Color.WHITE);
+        info.setLayoutX(437);
+        info.setLayoutY(625);
+        
+        info2.setFont(Font.font("Poppins", FontWeight.LIGHT, 12));
+        info2.setTextFill(Color.WHITE);
+        info2.setLayoutX(560);
+        info2.setLayoutY(625);
         
         // =============================================================================
         //                                  OPERATION
@@ -130,6 +157,14 @@ public class LoginAdmin {
             window.close();
             SebagaiAdmin sebagaiadmin = new SebagaiAdmin();
             sebagaiadmin.componentSebagaiAdmin();
+            String query = "INSERT INTO data_admin(Username, Jurusan) VALUES ('"+usernameField.getText()+"','"+passwordField.getText()+"')";
+            executeQuery(query);
+        });
+        
+        tanyaButton.setOnMousePressed((MouseEvent event) -> {
+            window.close();
+            SebagaiAdmin sebagaiadmin = new SebagaiAdmin();
+            sebagaiadmin.componentSebagaiAdmin(); 
         });
         
         Scene scene = new Scene(anchor);
@@ -140,5 +175,28 @@ public class LoginAdmin {
         window.setTitle("Program Pengajuan PKN");
         window.setScene(scene);
         window.show();
+    }
+    
+    public Connection getConnection(){
+        Connection conn;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/program_pengajuan_pkn", "root", "");
+            return conn;
+        }catch(SQLException e){
+            System.out.println("Error : "+e.getMessage());
+            return null;
+        }
+    }
+    
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
     }
 }
