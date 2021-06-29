@@ -3,6 +3,10 @@ package View;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
@@ -41,6 +45,7 @@ public class AjuProposalMahasiswa{
     private Label judulDepan4;
     private Label judulDepan5;
     private Label judulDepan6;
+    private Label textSelamat;
     private TextField tempatField;
     private TextField waktuField;
     private Button cvButton;
@@ -70,8 +75,9 @@ public class AjuProposalMahasiswa{
         waktuField = new TextField();
         cvButton = new Button("upload cv");
         proposalButton = new Button("upload proposal");
-        simpanButton = new Button("SAVE");
+        simpanButton = new Button("SIMPAN");
         backButton = new Button("BACK");
+        textSelamat = new Label("Proposal anda telah diajukan");
         list = new ListView();
         
         // =============================================================================
@@ -81,7 +87,9 @@ public class AjuProposalMahasiswa{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, judulDepan3, judulDepan4, judulDepan5, judulDepan6, tempatField, waktuField,cvButton, proposalButton,  simpanButton, backButton, list
+                bannerAtas, bannerBawah, judulDepan, judulDepan2, judulDepan3, judulDepan4, judulDepan5, 
+                judulDepan6, tempatField, waktuField,cvButton, proposalButton,  simpanButton, backButton, list,
+                textSelamat
         );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -121,6 +129,12 @@ public class AjuProposalMahasiswa{
         judulDepan6.setLayoutX(150);
         judulDepan6.setLayoutY(510);
         
+        textSelamat.setFont(Font.font("Poppins", FontWeight.LIGHT, 15));
+        textSelamat.setTextFill(Color.WHITE);
+        textSelamat.setLayoutX(420);
+        textSelamat.setLayoutY(700);
+        textSelamat.setVisible(false);
+        
         list.setPrefSize(290, 130);
         list.setLayoutX(590);
         list.setLayoutY(410);
@@ -132,7 +146,6 @@ public class AjuProposalMahasiswa{
         image.setFitWidth(90);
         image.setLayoutX(15);
         image.setLayoutY(60); 
-        
         
         // Setting TextField
         tempatField.setPrefSize(300,33);
@@ -149,9 +162,7 @@ public class AjuProposalMahasiswa{
         waktuField.setLayoutX(430);
         waktuField.setLayoutY(310);
         
-        
         // Setting Button
-        
         cvButton.setPrefSize(120, 30);
         cvButton.setLayoutX(430);
         cvButton.setLayoutY(410);
@@ -181,17 +192,16 @@ public class AjuProposalMahasiswa{
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
-    
+        
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
             SebagaiMahasiswa sebagaimahasiswa = new SebagaiMahasiswa();
             sebagaimahasiswa.componentSebagaiMahasiswa();
         });
         
-
         cvButton.setOnMousePressed((MouseEvent event) -> {
             FileChooser fc = new FileChooser();
-            fc.setInitialDirectory(new File("D:\\"));
+            fc.setInitialDirectory(new File("E:\\"));
             fc.getExtensionFilters().addAll(new ExtensionFilter("PDF Files", "*.pdf"));
 
             File selectedFile = fc.showOpenDialog(null);
@@ -205,7 +215,7 @@ public class AjuProposalMahasiswa{
         
         proposalButton.setOnMousePressed((MouseEvent event) -> {
             FileChooser fc = new FileChooser();
-            fc.setInitialDirectory(new File("D:\\"));
+            fc.setInitialDirectory(new File("E:\\"));
             fc.getExtensionFilters().addAll(new ExtensionFilter("PDF Files", "*.pdf"));
 
             File selectedFile = fc.showOpenDialog(null);
@@ -217,12 +227,41 @@ public class AjuProposalMahasiswa{
             }
         });
         
-        Scene scene = new Scene(anchor);
+        simpanButton.setOnMousePressed((MouseEvent event) -> {
+            textSelamat.setVisible(true);
+            String query = "INSERT INTO aju_proposal_mahasiswa(Tempat, Waktu) VALUES ('"+tempatField.getText()+"','"+waktuField.getText()+"')";
+            executeQuery(query);
+        });     
         
+        Scene scene = new Scene(anchor);
         Image icon = new Image("/View/logo2.png");
+        
         window.getIcons().add(icon);
         window.setTitle("Program Pengajuan PKN");
         window.setScene(scene);
         window.show();
+    }
+    
+    public Connection getConnection(){
+        Connection conn;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/program_pengajuan_pkn", "root", "");
+            return conn;
+        }catch(SQLException e){
+            System.out.println("Error : "+e.getMessage());
+            return null;
+        }
+    }
+    
+    private void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
     }
 }
