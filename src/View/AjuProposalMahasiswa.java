@@ -1,4 +1,3 @@
-
 package View;
 
 import java.io.File;
@@ -12,6 +11,7 @@ import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -138,14 +138,7 @@ public class AjuProposalMahasiswa{
         list.setPrefSize(290, 130);
         list.setLayoutX(590);
         list.setLayoutY(410);
-        
-        // Setting Image
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(90);
-        image.setFitWidth(90);
-        image.setLayoutX(15);
-        image.setLayoutY(60); 
+
         
         // Setting TextField
         tempatField.setPrefSize(300,33);
@@ -231,9 +224,27 @@ public class AjuProposalMahasiswa{
             textSelamat.setVisible(true);
             String query = "INSERT INTO aju_proposal_mahasiswa(Tempat, Waktu) VALUES ('"+tempatField.getText()+"','"+waktuField.getText()+"')";
             executeQuery(query);
-        });     
+        });
         
-        Scene scene = new Scene(anchor);
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mv, bannerAtas, bannerBawah, judulDepan, judulDepan2, judulDepan3, judulDepan4, judulDepan5, 
+                judulDepan6, tempatField, waktuField,cvButton, proposalButton,  simpanButton, backButton, list,
+                textSelamat);
+        
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(90);
+        image.setFitWidth(90);
+        image.setLayoutX(15);
+        image.setLayoutY(60);
+        
+        Scene scene = new Scene(root, 1100, 800);
+
         Image icon = new Image("/View/logo2.png");
         
         window.getIcons().add(icon);
