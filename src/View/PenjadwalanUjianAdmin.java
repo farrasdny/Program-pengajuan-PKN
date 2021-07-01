@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,10 +68,6 @@ public class PenjadwalanUjianAdmin{
         
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
-        anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, nilaiButton, backButton, simpanButton, list,
-                textSelamat
-        );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
         bannerAtas.setPrefSize(1100, 50);
@@ -97,14 +94,6 @@ public class PenjadwalanUjianAdmin{
         list.setPrefSize(290, 55);
         list.setLayoutX(395);
         list.setLayoutY(535);
-        
-        // setting Image
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
         
         //setting button
         nilaiButton.setPrefSize(120, 30);
@@ -161,7 +150,25 @@ public class PenjadwalanUjianAdmin{
             textSelamat.setVisible(true);
         });
         
-        Scene scene = new Scene(anchor);
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+
+        Group root = new Group();
+        root.getChildren().addAll(mv, bannerAtas, bannerBawah, judulDepan, judulDepan2, info, nilaiButton, backButton, simpanButton, list,
+                textSelamat);
+
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+
+        Scene scene = new Scene(root, 1100, 800);
+        
+
         
         Image icon = new Image("/View/logo2.png");
         window.getIcons().add(icon);
