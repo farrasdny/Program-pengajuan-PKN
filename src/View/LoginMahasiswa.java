@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -98,22 +99,15 @@ public class LoginMahasiswa{
         judulDepan2.setLayoutX(540);
         judulDepan2.setLayoutY(410);
         
-        info.setFont(Font.font("Poppins", FontWeight.BOLD, 12));
+        info.setFont(Font.font("Poppins", FontWeight.LIGHT, 12));
         info.setTextFill(Color.WHITE);
         info.setLayoutX(437);
         info.setLayoutY(678);
         
-        info2.setFont(Font.font("Poppins", FontWeight.BOLD, 12));
+        info2.setFont(Font.font("Poppins", FontWeight.LIGHT, 12));
         info2.setTextFill(Color.WHITE);
         info2.setLayoutX(560);
         info2.setLayoutY(678);
-        
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
         
         namaField.setPrefSize(260, 30);
         namaField.setPromptText("nama");
@@ -156,7 +150,7 @@ public class LoginMahasiswa{
         batalButton.setLayoutY(638);
         
         tanyaButton.setPrefSize(125, 30);
-        tanyaButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
+        tanyaButton.setBackground(new Background(new BackgroundFill(Color.DARKORANGE, new CornerRadii(5),Insets.EMPTY)));
         tanyaButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         tanyaButton.setTextFill(Color.WHITE);
         tanyaButton.setLayoutX(485);
@@ -176,7 +170,7 @@ public class LoginMahasiswa{
             window.close();
             SebagaiMahasiswa sebagaimahasiswa = new SebagaiMahasiswa();
             sebagaimahasiswa.componentSebagaiMahasiswa();
-            String query = "INSERT INTO datamahasiswa(nama, nim, jurursan) VALUES ('"+namaField.getText()+"','"+nimField.getText()+"','"+jurusanField.getText()+"')";
+            String query = "INSERT INTO data_mahasiswa(nama, nim, jurusan) VALUES ('"+namaField.getText()+"','"+nimField.getText()+"','"+jurusanField.getText()+"')";
             executeQuery(query);
         });
         
@@ -186,7 +180,23 @@ public class LoginMahasiswa{
             sebagaimahasiswa.componentSebagaiMahasiswa();
         });
         
-        Scene scene = new Scene(anchor);
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mv, bannerAtas, bannerBawah, judulDepan, judulDepan2, info, info2, namaField, nimField, jurusanField,
+                simpanButton, batalButton, tanyaButton);
+        
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+        
+        Scene scene = new Scene(root, 1100, 800);
         
         Image icon = new Image("/View/logo2.png");
         
@@ -199,7 +209,7 @@ public class LoginMahasiswa{
     public Connection getConnection(){
         Connection conn;
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/programpkn", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/program_pengajuan_pkn", "root", "");
             return conn;
         }catch(SQLException e){
             System.out.println("Error : "+e.getMessage());
