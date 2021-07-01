@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -85,10 +86,6 @@ public class SebagaiDosen{
         
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
-        anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, simpanButton, backButton, table,
-                jumlahMahasiswaField, waktuField, ruanganField, tampilButton
-        );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
         bannerAtas.setPrefSize(1100, 50);
@@ -155,25 +152,11 @@ public class SebagaiDosen{
         ruanganField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
         ruanganField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
         
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/fuiyoh2.jpg")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(240);
-        image.setFitWidth(280);
-        image.setLayoutX(765);
-        image.setLayoutY(480);
-        image.setVisible(false);
-        
         // =============================================================================
         //                                  OPERATION
         // =============================================================================
         
-        Scene scene = new Scene(anchor);
-        Image icon = new Image("/View/logo2.png");
         
-        window.getIcons().add(icon);
-        window.setTitle("Program Pengajuan PKN");
-        window.setScene(scene);
-        window.show();
         
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
@@ -189,8 +172,23 @@ public class SebagaiDosen{
         
         tampilButton.setOnMousePressed((MouseEvent event) -> {
             showJadwalDosen();
-            image.setVisible(true);
         });
+        
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+
+        Group root = new Group();
+        root.getChildren().addAll(mv, bannerAtas, bannerBawah, judulDepan, judulDepan2, simpanButton, backButton, table,
+                jumlahMahasiswaField, waktuField, ruanganField, tampilButton);
+
+        Scene scene = new Scene(root, 1100, 800);
+        Image icon = new Image("/View/logo2.png");
+        
+        window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
+        window.setScene(scene);
+        window.show();
     }
     
     public Connection getConnection(){
