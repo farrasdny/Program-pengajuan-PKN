@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -62,10 +64,10 @@ public class MainClass extends Application {
         // =============================================================================
         //                          CONTROL PANE UTAMA
         // =============================================================================
-           
+
          anchor.setPrefSize(1100 , 800);
          anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
-         anchor.getChildren().addAll(judulDepan, judulDepan2, cbox, info, bannerAtas, bannerBawah, buttonPilih);
+         anchor.getChildren().addAll();
          
          judulDepan.setFont(Font.font("Poppins", FontWeight.BOLD, 40));
          judulDepan.setTextFill(Color.WHITE);
@@ -83,17 +85,9 @@ public class MainClass extends Application {
          cbox.setLayoutX(437);
          cbox.setLayoutY(600);
          cbox.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, new CornerRadii(5),Insets.EMPTY)));
-         
+
          // --> Azzahry Dwi Pramudio
-                
-         // slot image
-         ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-         anchor.getChildren().add(image);
-         image.setFitHeight(280);
-         image.setFitWidth(290);
-         image.setLayoutX(400);
-         image.setLayoutY(100);
-         
+
          // slot info
          info.setFont(Font.font("Poppins", FontWeight.EXTRA_LIGHT, 20));
          info.setTextFill(Color.WHITE);
@@ -136,13 +130,38 @@ public class MainClass extends Application {
     public void accFromOtherClass(){
         componentAwal();
         Stage window = new Stage();
-        Scene scene = new Scene(anchor);
+        
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mv, judulDepan, judulDepan2, cbox, info, bannerAtas, bannerBawah, buttonPilih);
+        
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+        
+        Scene scene = new Scene(root);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
             // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
-                    slideLoginMahasiswa(); 
+                    DaftarUjianMahasiswa daftar = new DaftarUjianMahasiswa();
+         
+                    if(daftar.tableData != null){
+                        SebagaiMahasiswa a = new SebagaiMahasiswa();
+                        a.componentSebagaiMahasiswa();
+                    }
+                    else if(daftar.tableData == null){
+                        slideLoginMahasiswa(); 
+                    }
+                    
                     window.close();
                     break;
                 case "Dosen":
@@ -168,13 +187,38 @@ public class MainClass extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         componentAwal();
-        Scene scene = new Scene(anchor);
+        
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mv, judulDepan, judulDepan2, cbox, info, bannerAtas, bannerBawah, buttonPilih);
+        
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+        
+        Scene scene = new Scene(root, 1100, 800);
         
         buttonPilih.setOnMousePressed((MouseEvent event) -> { 
             // combo box 
             switch(cbox.getValue()){
                 case "Mahasiswa":
-                    slideLoginMahasiswa();  
+                    DaftarUjianMahasiswa daftar = new DaftarUjianMahasiswa();
+         
+                    if(daftar.tableData != null){
+                        SebagaiMahasiswa a = new SebagaiMahasiswa();
+                        a.componentSebagaiMahasiswa();
+                    }
+                    else if(daftar.tableData == null){
+                        slideLoginMahasiswa(); 
+                    }
+                    
                     primaryStage.close();
                     break;
                 case "Dosen":
