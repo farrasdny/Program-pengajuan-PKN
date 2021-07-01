@@ -3,6 +3,7 @@ package View;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,11 +33,7 @@ public class ApprovalAdmin{
     private Pane bannerBawah;
     private Label judulDepan;
     private Label judulDepan2;
-    private TextField jumlahAnggotaField;
-    private TextField waktuField;
-    private TextField tempatField;
     private Button kirimButton;
-    private Button suratButton;
     private Button backButton;
     private Label textSelamat;
     
@@ -53,12 +50,8 @@ public class ApprovalAdmin{
         bannerBawah = new Pane();
         judulDepan = new Label("APPROVAL");
         judulDepan2 = new Label("ADMIN");
-        jumlahAnggotaField = new TextField();
-        waktuField = new TextField();
-        tempatField = new TextField();
-        kirimButton = new Button("KIRIM KE PERUSAHAAN");
+        kirimButton = new Button("KIRIM E-MAIL");
         backButton = new Button("BACK");
-        suratButton = new Button("SURAT BALASAN");
         textSelamat = new Label("Data telah terkirim, mohon menunggu surat balasan dari perusahaan");
         
         // =============================================================================
@@ -69,10 +62,6 @@ public class ApprovalAdmin{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.setEffect(null);
-        anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, jumlahAnggotaField, waktuField, tempatField,
-                kirimButton, suratButton, backButton, textSelamat
-        );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
         bannerAtas.setPrefSize(1100, 50);
@@ -91,51 +80,16 @@ public class ApprovalAdmin{
         judulDepan2.setLayoutX(585);
         judulDepan2.setLayoutY(400);
         
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
-        
-        jumlahAnggotaField.setPrefSize(260, 30);
-        jumlahAnggotaField.setPromptText("Jumlah anggota yang disetujui");
-        jumlahAnggotaField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
-        jumlahAnggotaField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
-        jumlahAnggotaField.setLayoutY(475);
-        jumlahAnggotaField.setLayoutX(420);
-        
-        waktuField.setPrefSize(260, 30);
-        waktuField.setPromptText("Waktu yang disetujui");
-        waktuField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
-        waktuField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
-        waktuField.setLayoutY(525);
-        waktuField.setLayoutX(420);
-        
-        tempatField.setPrefSize(260, 30);
-        tempatField.setPromptText("Tempat yang disetujui");
-        tempatField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
-        tempatField.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5),Insets.EMPTY)));
-        tempatField.setLayoutY(575);
-        tempatField.setLayoutX(420);
-        
         kirimButton.setPrefSize(260, 30);
         kirimButton.setLayoutX(420);
-        kirimButton.setLayoutY(625);
+        kirimButton.setLayoutY(470);
         kirimButton.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, new CornerRadii(5),Insets.EMPTY)));
         kirimButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         kirimButton.setTextFill(Color.WHITE);
-        
-        suratButton.setPrefSize(122, 30);
-        suratButton.setLayoutX(557);
-        suratButton.setLayoutY(675);
-        suratButton.setBackground(new Background(new BackgroundFill(Color.DARKORANGE, new CornerRadii(5),Insets.EMPTY)));
-        suratButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
-        suratButton.setTextFill(Color.WHITE);
-        
-        backButton.setPrefSize(122, 30);
+
+        backButton.setPrefSize(260, 30);
         backButton.setLayoutX(420);
-        backButton.setLayoutY(675);
+        backButton.setLayoutY(519);
         backButton.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(5),Insets.EMPTY)));
         backButton.setFont(Font.font("Poppins", FontWeight.LIGHT, 13));
         backButton.setTextFill(Color.WHITE);
@@ -146,10 +100,6 @@ public class ApprovalAdmin{
         textSelamat.setLayoutY(720);
         textSelamat.setVisible(false);
         
-        suratButton.setOnMousePressed((MouseEvent event) -> {
-            SuratBalasan suratbalasan = new SuratBalasan();
-            suratbalasan.componentSuratBalasan();
-        });
         
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
@@ -158,10 +108,27 @@ public class ApprovalAdmin{
         });
         
         kirimButton.setOnMousePressed((MouseEvent event) -> {
-            textSelamat.setVisible(true);
+            KirimEmail kirim = new KirimEmail();
+            kirim.componentKirimEmail();
         });
         
-        Scene scene = new Scene(anchor);
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mv, bannerAtas, bannerBawah, judulDepan, judulDepan2,
+                kirimButton, backButton, textSelamat);
+        
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+        
+        Scene scene = new Scene(root, 1100, 800);
         Image icon = new Image("/View/logo2.png");
         
         window.getIcons().add(icon);
