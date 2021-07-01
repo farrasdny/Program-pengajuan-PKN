@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -91,13 +92,6 @@ public class LoginAdmin {
         judulDepan2.setLayoutX(595);
         judulDepan2.setLayoutY(410);
         
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
-        
         usernameField.setPrefSize(260, 30);
         usernameField.setPromptText("Usename");
         usernameField.setFont(Font.font("Poppins", FontWeight.SEMI_BOLD, 14));
@@ -167,7 +161,23 @@ public class LoginAdmin {
             sebagaiadmin.componentSebagaiAdmin(); 
         });
         
-        Scene scene = new Scene(anchor);
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mv, bannerAtas, bannerBawah, judulDepan, judulDepan2, usernameField, passwordField,
+                simpanButton, batalButton, tanyaButton, info, info2);
+        
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+        
+        Scene scene = new Scene(root, 1100, 800);
         
         Image icon = new Image("/View/logo2.png");
         
@@ -180,7 +190,7 @@ public class LoginAdmin {
     public Connection getConnection(){
         Connection conn;
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/programpkn", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/program_pengajuan_pkn", "root", "");
             return conn;
         }catch(SQLException e){
             System.out.println("Error : "+e.getMessage());
