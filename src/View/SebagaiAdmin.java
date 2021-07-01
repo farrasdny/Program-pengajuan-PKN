@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -61,9 +62,7 @@ public class SebagaiAdmin{
         
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
-        anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, approveButton, jadwalUjianButton, nilaiButton, backButton
-        );
+        
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
         bannerAtas.setPrefSize(1100, 50);
@@ -81,13 +80,6 @@ public class SebagaiAdmin{
         judulDepan2.setTextFill(Color.WHITE);
         judulDepan2.setLayoutX(565);
         judulDepan2.setLayoutY(410);
-        
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
         
         approveButton.setPrefSize(220, 33);
         approveButton.setLayoutY(490);
@@ -121,13 +113,7 @@ public class SebagaiAdmin{
         //                                  OPERATION
         // =============================================================================
         
-        Scene scene = new Scene(anchor);
-        Image icon = new Image("/View/logo2.png");
         
-        window.getIcons().add(icon);
-        window.setTitle("Program Pengajuan PKN");
-        window.setScene(scene);
-        window.show();
         
         backButton.setOnMousePressed((MouseEvent event) -> {
             window.close();
@@ -152,5 +138,28 @@ public class SebagaiAdmin{
             NilaiPKNAdmin nilai = new NilaiPKNAdmin();
             nilai.componentNilai();
         });
+        
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+
+        Group root = new Group();
+        root.getChildren().addAll(mv,  bannerAtas, bannerBawah, judulDepan, judulDepan2, approveButton, jadwalUjianButton, nilaiButton, backButton);
+
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+
+        Scene scene = new Scene(root, 1100, 800);
+        Image icon = new Image("/View/logo2.png");
+        
+        window.getIcons().add(icon);
+        window.setTitle("Program Pengajuan PKN");
+        window.setScene(scene);
+        window.show();
     }
 }
