@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -82,10 +83,6 @@ public class DaftarUjianMahasiswa{
         anchor.setPrefSize(1100 , 800);
         anchor.setStyle("-fx-background-color: linear-gradient(#4C87EB, #242275);");
         anchor.setEffect(null);
-        anchor.getChildren().addAll(
-                bannerAtas, bannerBawah, judulDepan, judulDepan2, info, tableData, buttonUpload, daftarButton, backButton,
-                textSelamat
-        );
         
         bannerAtas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
         bannerAtas.setPrefSize(1100, 50);
@@ -108,13 +105,6 @@ public class DaftarUjianMahasiswa{
         info.setTextFill(Color.WHITE);
         info.setLayoutX(462);
         info.setLayoutY(470);
-        
-        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
-        anchor.getChildren().add(image);
-        image.setFitHeight(280);
-        image.setFitWidth(290);
-        image.setLayoutX(400);
-        image.setLayoutY(100);
         
         tableData.getColumns().addAll(namaColumn, nimColumn, jurusanColumn);
         tableData.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
@@ -175,8 +165,26 @@ public class DaftarUjianMahasiswa{
             textSelamat.setVisible(true);
         });
         
+        
+        
         showMahasiswa();
-        Scene scene = new Scene(anchor);
+        // set background add image
+        Image image2 = new Image("/View/umm_background2.png");
+        ImageView mv = new ImageView(image2);
+
+        Group root = new Group();
+        root.getChildren().addAll(mv,  bannerAtas, bannerBawah, judulDepan, judulDepan2, info, tableData, buttonUpload, daftarButton, backButton,
+                textSelamat);
+
+        // slot image
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("/View/logo2.png")));
+        root.getChildren().add(image);
+        image.setFitHeight(280);
+        image.setFitWidth(290);
+        image.setLayoutX(400);
+        image.setLayoutY(100);
+
+        Scene scene = new Scene(root, 1100, 800);
         Image icon = new Image("/View/logo2.png");
         
         window.getIcons().add(icon);
@@ -192,7 +200,7 @@ public class DaftarUjianMahasiswa{
     Connection conn;
     public Connection getConnection(){
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Program_pengajuan_PKN", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/ProgramPKN", "root", "");
             return conn;
         }
         catch(Exception e){ 
@@ -204,7 +212,7 @@ public class DaftarUjianMahasiswa{
     public ObservableList<Mahasiswa> getMahasiswaList(){
         ObservableList<Mahasiswa> mahasiswaList = FXCollections.observableArrayList();
         Connection conn = getConnection();
-        String query = "SELECT * FROM data_mahasiswa";
+        String query = "SELECT * FROM datamahasiswa";
         Statement st;
         ResultSet rs;
         
@@ -213,7 +221,7 @@ public class DaftarUjianMahasiswa{
             rs = st.executeQuery(query);
             Mahasiswa mahasiswa;
             while(rs.next()){
-                mahasiswa = new Mahasiswa(rs.getString("nama"), rs.getString("nim"), rs.getString("jurusan"));
+                mahasiswa = new Mahasiswa(rs.getString("nama"), rs.getString("nim"), rs.getString("jurursan"));
                 mahasiswaList.add(mahasiswa);
             }
         }
